@@ -1,20 +1,22 @@
-import { v4 as uuidv4 } from "uuid";
-
-import { tasks } from "../data/tasks";
-
-import { Task } from "../interfaces/task.interface";
+import { prisma } from "../config/prisma";
 
 import { CreateTaskDto } from "../dto/create-task.dto";
 
 import { AppError } from "../errors/app-error";
 
 export class TaskService {
-  static getAllTasks(): Task[] {
-    return tasks;
+  static async getAllTasks() {
+    return prisma.task.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
   }
 
-  static getTaskById(id: string): Task {
-    const task = tasks.find((task) => task.id === id);
+  static async getTaskById(id: string) {
+    const task = await prisma.task.findUnique({
+      where: { id },
+    });
 
     if (!task) {
       throw new AppError("Task not found", 404);
@@ -23,15 +25,11 @@ export class TaskService {
     return task;
   }
 
-  static createTask(body: CreateTaskDto): Task {
-    const newTask: Task = {
-      id: uuidv4(),
-      title: body.title,
-      completed: false,
-    };
-
-    tasks.push(newTask);
-
-    return newTask;
+  static async createTask(body: CreateTaskDto) {
+    return prisma.task.create({
+      data: {
+        title: body.title,
+      },
+    });
   }
 }
