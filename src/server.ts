@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import dotenv from "dotenv";
+import dotenv from "dotenv-safe";
 import app from "./app";
 
 // Load environment variables from .env file

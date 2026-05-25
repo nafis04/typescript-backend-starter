@@ -5,7 +5,7 @@ import { TaskService } from "../services/task.service";
 import { CreateTaskDto } from "../dto/create-task.dto";
 
 export const getTasks = async (req: Request, res: Response): Promise<void> => {
-  const tasks = await TaskService.getAllTasks();
+  const tasks = await TaskService.getAllTasks(req.query);
 
   res.json({
     success: true,
