@@ -8,7 +8,9 @@ import { LoginDto } from "../dto/login.dto";
 
 import { AppError } from "../errors/app-error";
 
-import { generateToken } from "../utils/jwt";
+import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
+
+import { verifyRefreshToken } from "../utils/verify-token";
 
 export class AuthService {
   static async register(body: RegisterDto) {
@@ -31,10 +33,13 @@ export class AuthService {
       },
     });
 
-    const token = generateToken(user.id);
+    const accessToken = generateAccessToken(user.id);
+
+    const refreshToken = generateRefreshToken(user.id);
 
     return {
-      token,
+      accessToken,
+      refreshToken,
       user: {
         id: user.id,
         email: user.email,
@@ -59,14 +64,37 @@ export class AuthService {
       throw new AppError("Invalid credentials", 401);
     }
 
-    const token = generateToken(user.id);
+    const accessToken = generateAccessToken(user.id);
+
+    const refreshToken = generateRefreshToken(user.id);
 
     return {
-      token,
+      accessToken,
+      refreshToken,
       user: {
         id: user.id,
         email: user.email,
       },
+    };
+  }
+
+  static async refreshToken(refreshToken: string) {
+    try {
+      const decoded = verifyRefreshToken(refreshToken);
+
+      const accessToken = generateAccessToken(decoded.userId);
+
+      return {
+        accessToken,
+      };
+    } catch {
+      throw new AppError("Invalid refresh token", 401);
+    }
+  }
+
+  static async logout() {
+    return {
+      message: "Logged out successfully",
     };
   }
 }

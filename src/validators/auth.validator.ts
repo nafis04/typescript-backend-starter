@@ -7,3 +7,7 @@ export const registerSchema = z.object({
 });
 
 export const loginSchema = registerSchema;
+
+export const refreshTokenSchema = z.object({
+  refreshToken: z.string(),
+});
