@@ -1,16 +1,16 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 
-import { prisma } from "../config/prisma";
+import { prisma } from '../config/prisma';
 
-import { RegisterDto } from "../dto/register.dto";
+import { RegisterDto } from '../dto/register.dto';
 
-import { LoginDto } from "../dto/login.dto";
+import { LoginDto } from '../dto/login.dto';
 
-import { AppError } from "../errors/app-error";
+import { AppError } from '../errors/app-error';
 
-import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
+import { generateAccessToken, generateRefreshToken } from '../utils/jwt';
 
-import { verifyRefreshToken } from "../utils/verify-token";
+import { verifyRefreshToken } from '../utils/verify-token';
 
 export class AuthService {
   static async register(body: RegisterDto) {
@@ -21,7 +21,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new AppError("Email already exists", 400);
+      throw new AppError('Email already exists', 400);
     }
 
     const hashedPassword = await bcrypt.hash(body.password, 10);
@@ -55,13 +55,13 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new AppError("Invalid credentials", 401);
+      throw new AppError('Invalid credentials', 401);
     }
 
     const isPasswordValid = await bcrypt.compare(body.password, user.password);
 
     if (!isPasswordValid) {
-      throw new AppError("Invalid credentials", 401);
+      throw new AppError('Invalid credentials', 401);
     }
 
     const accessToken = generateAccessToken(user.id);
@@ -88,13 +88,13 @@ export class AuthService {
         accessToken,
       };
     } catch {
-      throw new AppError("Invalid refresh token", 401);
+      throw new AppError('Invalid refresh token', 401);
     }
   }
 
   static async logout() {
     return {
-      message: "Logged out successfully",
+      message: 'Logged out successfully',
     };
   }
 }

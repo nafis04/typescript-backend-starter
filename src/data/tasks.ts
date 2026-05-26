@@ -1,14 +1,14 @@
-import { Task } from "../interfaces/task.interface";
+import { Task } from '../interfaces/task.interface';
 
 export const tasks: Task[] = [
   {
-    id: "1",
-    title: "Learn TypeScript",
+    id: '1',
+    title: 'Learn TypeScript',
     completed: false,
   },
   {
-    id: "2",
-    title: "Build Backend APIs",
+    id: '2',
+    title: 'Build Backend APIs',
     completed: true,
   },
 ];

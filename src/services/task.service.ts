@@ -1,7 +1,7 @@
-import { prisma } from "../config/prisma";
-import { CreateTaskDto } from "../dto/create-task.dto";
-import { AppError } from "../errors/app-error";
-import { TaskQueryInput } from "../validators/task.validator";
+import { prisma } from '../config/prisma';
+import { CreateTaskDto } from '../dto/create-task.dto';
+import { AppError } from '../errors/app-error';
+import { TaskQueryInput } from '../validators/task.validator';
 
 export class TaskService {
   static async getAllTasks(userId: string, query: TaskQueryInput) {
@@ -16,7 +16,7 @@ export class TaskService {
 
       ...(query.completed
         ? {
-            completed: query.completed === "true",
+            completed: query.completed === 'true',
           }
         : {}),
     };
@@ -26,7 +26,7 @@ export class TaskService {
       skip,
       take: limit,
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
     });
   }
@@ -40,7 +40,7 @@ export class TaskService {
     });
 
     if (!task) {
-      throw new AppError("Task not found", 404);
+      throw new AppError('Task not found', 404);
     }
 
     return task;

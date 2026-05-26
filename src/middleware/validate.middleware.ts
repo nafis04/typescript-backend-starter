@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
-import { ZodType } from "zod";
+import { ZodType } from 'zod';
 
 export const validate = (
   schema: ZodType,
-  source: "body" | "query" = "body"
+  source: 'body' | 'query' = 'body'
 ) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     const result = schema.safeParse(req[source]);
@@ -13,7 +13,7 @@ export const validate = (
       res.status(400).json({
         success: false,
         errors: result.error.issues.map((issue) => ({
-          field: issue.path.join("."),
+          field: issue.path.join('.'),
           message: issue.message,
         })),
       });

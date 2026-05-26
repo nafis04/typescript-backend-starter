@@ -1,6 +1,6 @@
-import dotenv from "dotenv-safe";
-import app from "./app";
-import { logger } from "./utils/logger";
+import dotenv from 'dotenv-safe';
+import app from './app';
+import { logger } from './utils/logger';
 
 // Load environment variables from .env file
 dotenv.config();

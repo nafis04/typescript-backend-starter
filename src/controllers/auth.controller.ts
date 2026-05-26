@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
-import { AuthService } from "../services/auth.service";
+import { AuthService } from '../services/auth.service';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const result = await AuthService.register(req.body);

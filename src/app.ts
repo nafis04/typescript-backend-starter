@@ -1,12 +1,12 @@
-import express from "express";
-import healthRoutes from "./routes/health.routes";
-import authRoutes from "./routes/auth.routes";
-import taskRoutes from "./routes/task.routes";
-import { errorHandler } from "./middleware/error.middleware";
-import helmet from "helmet";
-import cors from "cors";
-import rateLimit from "express-rate-limit";
-import { requestLogger } from "./middleware/logger.middleware";
+import express from 'express';
+import healthRoutes from './routes/health.routes';
+import authRoutes from './routes/auth.routes';
+import taskRoutes from './routes/task.routes';
+import { errorHandler } from './middleware/error.middleware';
+import helmet from 'helmet';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import { requestLogger } from './middleware/logger.middleware';
 
 const app = express();
 
@@ -31,9 +31,9 @@ app.use(limiter);
 app.use(requestLogger);
 
 // Routes
-app.use("/health", healthRoutes);
-app.use("/auth", authRoutes);
-app.use("/tasks", taskRoutes);
+app.use('/health', healthRoutes);
+app.use('/auth', authRoutes);
+app.use('/tasks', taskRoutes);
 
 // Error handling middleware
 app.use(errorHandler);

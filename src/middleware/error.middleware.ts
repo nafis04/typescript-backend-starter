@@ -1,12 +1,12 @@
-import { Request, Response, NextFunction } from "express";
-import { AppError } from "../errors/app-error";
-import { logger } from "../utils/logger";
+import { Request, Response, NextFunction } from 'express';
+import { AppError } from '../errors/app-error';
+import { logger } from '../utils/logger';
 
 export const errorHandler = (
   err: Error,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): void => {
   logger.error({
     message: err.message,
@@ -24,6 +24,6 @@ export const errorHandler = (
 
   res.status(500).json({
     success: false,
-    message: "Internal Server Error",
+    message: 'Internal Server Error',
   });
 };
