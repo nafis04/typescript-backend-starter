@@ -1,5 +1,6 @@
 import express from "express";
 import { validate } from "../middleware/validate.middleware";
+import { protect } from "../middleware/auth.middleware";
 
 import {
   createTaskSchema,
@@ -14,10 +15,15 @@ import {
 
 const router = express.Router();
 
-router.get("/", validate(taskQuerySchema, "query"), asyncHandler(getTasks));
+router.get(
+  "/",
+  protect,
+  validate(taskQuerySchema, "query"),
+  asyncHandler(getTasks)
+);
 
-router.post("/", validate(createTaskSchema), asyncHandler(createTask));
+router.post("/", protect, validate(createTaskSchema), asyncHandler(createTask));
 
-router.get("/:id", asyncHandler(getTaskById));
+router.get("/:id", protect, asyncHandler(getTaskById));
 
 export default router;

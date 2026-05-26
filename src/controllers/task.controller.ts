@@ -5,7 +5,7 @@ import { TaskService } from "../services/task.service";
 import { CreateTaskDto } from "../dto/create-task.dto";
 
 export const getTasks = async (req: Request, res: Response): Promise<void> => {
-  const tasks = await TaskService.getAllTasks(req.query);
+  const tasks = await TaskService.getAllTasks(req.user!.userId, req.query);
 
   res.json({
     success: true,
@@ -17,7 +17,7 @@ export const getTaskById = async (
   req: Request<{ id: string }>,
   res: Response
 ): Promise<void> => {
-  const task = await TaskService.getTaskById(req.params.id);
+  const task = await TaskService.getTaskById(req.params.id, req.user!.userId);
 
   res.json({
     success: true,
@@ -31,7 +31,7 @@ export const createTask = async (
 ): Promise<void> => {
   const body: CreateTaskDto = req.body;
 
-  const newTask = await TaskService.createTask(body);
+  const newTask = await TaskService.createTask(req.user!.userId, body);
 
   res.status(201).json({
     success: true,

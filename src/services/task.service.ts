@@ -4,18 +4,22 @@ import { AppError } from "../errors/app-error";
 import { TaskQueryInput } from "../validators/task.validator";
 
 export class TaskService {
-  static async getAllTasks(query: TaskQueryInput) {
+  static async getAllTasks(userId: string, query: TaskQueryInput) {
     const page = Number(query.page) || 1;
 
     const limit = Number(query.limit) || 10;
 
     const skip = (page - 1) * limit;
 
-    const where = query.completed
-      ? {
-          completed: query.completed === "true",
-        }
-      : {};
+    const where = {
+      userId,
+
+      ...(query.completed
+        ? {
+            completed: query.completed === "true",
+          }
+        : {}),
+    };
 
     return prisma.task.findMany({
       where,
@@ -27,9 +31,12 @@ export class TaskService {
     });
   }
 
-  static async getTaskById(id: string) {
-    const task = await prisma.task.findUnique({
-      where: { id },
+  static async getTaskById(id: string, userId: string) {
+    const task = await prisma.task.findFirst({
+      where: {
+        id,
+        userId,
+      },
     });
 
     if (!task) {
@@ -39,10 +46,11 @@ export class TaskService {
     return task;
   }
 
-  static async createTask(body: CreateTaskDto) {
+  static async createTask(userId: string, body: CreateTaskDto) {
     return prisma.task.create({
       data: {
         title: body.title,
+        userId,
       },
     });
   }
