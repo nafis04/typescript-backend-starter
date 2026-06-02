@@ -8,6 +8,7 @@
     "start": "node dist/server.js",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "prisma:generate": "prisma generate",
     "test": "jest"
   },
   "keywords": [],
