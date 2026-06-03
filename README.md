@@ -1,52 +1,96 @@
 # TypeScript Backend Starter
 
-A scalable backend starter project built with:
+A production-oriented backend starter project built with TypeScript, Express.js, PostgreSQL, Prisma, Redis, and BullMQ.
 
-- Node.js
-- Express.js
+This project is part of my backend engineering learning journey focused on building scalable, maintainable, and production-ready backend systems.
+
+---
+
+## Features
+
+### Core Backend
+
+- Express.js REST API
 - TypeScript
+- Modular architecture
+- Environment configuration
+- Centralized error handling
+- Async request handling
 
-This project is part of my backend engineering learning journey focused on building production-ready backend systems using modern TypeScript architecture.
+### Database
+
+- PostgreSQL
+- Prisma ORM
+- Database migrations
+- Type-safe database access
+
+### Authentication & Security
+
+- JWT Authentication
+- Password hashing with bcrypt
+- Helmet security middleware
+- CORS support
+- Rate limiting
+
+### Validation
+
+- Zod request validation
+- Structured API error responses
+
+### Logging
+
+- Pino logger
+- HTTP request logging
+
+### Background Processing
+
+- Redis
+- BullMQ
+- Background workers
+- Job retries
+- Job status tracking
+
+### DevOps
+
+- Docker
+- Docker Compose
+- GitHub Actions CI/CD
+- ESLint
+- Jest Testing
 
 ---
 
-# Features
+## Project Structure
 
-- Express server setup
-- TypeScript configuration
-- Modular route architecture
-- Controllers separation
-- Typed interfaces
-- Environment variable support
-- Clean folder structure
-- REST API endpoints
-
----
-
-# Project Structure
-
-```bash
+```text
 src/
 │
+├── config/
 ├── controllers/
+├── middleware/
+├── prisma/
+├── queues/
 ├── routes/
-├── interfaces/
-├── data/
+├── services/
+├── tests/
+├── utils/
+├── workers/
+│
 ├── app.ts
 └── server.ts
 ```
 
 ---
 
-# Installation
+## Installation
 
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
+git clone <repository-url>
 ```
 
-Move into project directory:
+Move into the project:
 
 ```bash
 cd typescript-backend-starter
@@ -60,23 +104,61 @@ npm install
 
 ---
 
-# Run Development Server
+## Environment Variables
+
+Create a `.env` file:
+
+```env
+PORT=5000
+
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/task_management
+
+JWT_SECRET=your-secret-key
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
+
+---
+
+## Running Locally
+
+Start API:
 
 ```bash
 npm run dev
 ```
 
-Server runs on:
+Start Worker:
 
 ```bash
-http://localhost:5000
+npm run worker
+```
+
+Start Both:
+
+```bash
+npm run dev:all
 ```
 
 ---
 
-# Build Project
+## Running with Docker
 
-Compile TypeScript into JavaScript:
+```bash
+docker compose up --build
+```
+
+Services:
+
+- API
+- PostgreSQL
+- Redis
+- BullMQ Worker
+
+---
+
+## Build
 
 ```bash
 npm run build
@@ -84,58 +166,109 @@ npm run build
 
 ---
 
-# API Endpoints
+## Testing
 
-## Get All Tasks
+Run tests:
+
+```bash
+npm test
+```
+
+Generate coverage report:
+
+```bash
+npm run test:coverage
+```
+
+---
+
+## API Endpoints
+
+### Health Check
+
+```http
+GET /health
+```
+
+### Tasks
 
 ```http
 GET /tasks
-```
-
----
-
-## Get Task By ID
-
-```http
 GET /tasks/:id
+POST /tasks
+PUT /tasks/:id
+DELETE /tasks/:id
 ```
 
-Example:
+### Reports
+
+Create background job:
 
 ```http
-GET /tasks/1
+POST /reports
+```
+
+Check job status:
+
+```http
+GET /reports/:jobId
 ```
 
 ---
 
-# Tech Stack
+## Tech Stack
 
 - Node.js
-- Express.js
 - TypeScript
-- ts-node-dev
+- Express.js
+- PostgreSQL
+- Prisma
+- Redis
+- BullMQ
+- JWT
+- Zod
+- Pino
+- Docker
+- GitHub Actions
+- Jest
+- ESLint
 
 ---
 
-# Learning Goals
+## Learning Goals
 
-This project is focused on learning:
+This project focuses on learning:
 
-- TypeScript fundamentals
-- Backend architecture
-- Modular API design
-- Type-safe development
-- Scalable project structure
-
----
-
-# Future Improvements
-
-- PostgreSQL integration
+- Backend Architecture
+- TypeScript
+- REST API Design
 - Authentication
-- Validation middleware
-- Docker support
-- Redis caching
-- Queue processing
-- Error handling middleware
-- Logging system
+- Database Design
+- Background Processing
+- Caching
+- Testing
+- CI/CD
+- Containerization
+
+---
+
+## Current Progress
+
+- ✅ Express + TypeScript
+- ✅ PostgreSQL + Prisma
+- ✅ JWT Authentication
+- ✅ Validation Middleware
+- ✅ Logging
+- ✅ Docker
+- ✅ GitHub Actions
+- ✅ Redis
+- ✅ BullMQ
+- ✅ Background Workers
+
+### Upcoming
+
+- Redis Caching
+- Advanced Testing
+- API Documentation
+- Performance Optimization
+- NestJS Migration Project
