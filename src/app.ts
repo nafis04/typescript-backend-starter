@@ -2,6 +2,7 @@ import express from 'express';
 import healthRoutes from './routes/health.routes';
 import authRoutes from './routes/auth.routes';
 import taskRoutes from './routes/task.routes';
+import reportRoutes from './routes/report.routes';
 import { errorHandler } from './middleware/error.middleware';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -34,6 +35,7 @@ app.use(requestLogger);
 app.use('/health', healthRoutes);
 app.use('/auth', authRoutes);
 app.use('/tasks', taskRoutes);
+app.use('/reports', reportRoutes);
 
 // Error handling middleware
 app.use(errorHandler);
