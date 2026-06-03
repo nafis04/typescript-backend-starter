@@ -4,7 +4,7 @@ const prettierPlugin = require('eslint-plugin-prettier');
 
 module.exports = [
   {
-    ignores: ['src/generated/prisma/**'],
+    ignores: ['dist/**', 'coverage/**', 'src/generated/prisma/**'],
   },
   {
     files: ['src/**/*.ts'],
@@ -22,7 +22,7 @@ module.exports = [
 
     rules: {
       'prettier/prettier': 'error',
-    
+
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
