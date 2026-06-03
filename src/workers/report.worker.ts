@@ -2,7 +2,7 @@ import { Worker } from 'bullmq';
 import { logger } from '../utils/logger';
 import { redisConfig } from '../config/redis';
 
-const worker = new Worker(
+export const worker = new Worker(
   'report-processing',
 
   async (job) => {
