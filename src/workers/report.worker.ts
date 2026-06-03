@@ -1,5 +1,6 @@
 import { Worker } from 'bullmq';
 import { logger } from '../utils/logger';
+import { redisConfig } from '../config/redis';
 
 const worker = new Worker(
   'report-processing',
@@ -13,9 +14,6 @@ const worker = new Worker(
   },
 
   {
-    connection: {
-      host: process.env.REDIS_HOST || 'localhost',
-      port: process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT) : 6380,
-    },
+    connection: redisConfig,
   }
 );
